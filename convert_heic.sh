@@ -1,5 +1,6 @@
 convert_heic() {
-  for file in *.HEIC *.heic(N); do
+  setopt +o nomatch  # Prevent zsh from erroring on no matches
+  for file in *.HEIC *.heic; do
     [ -f "$file" ] || continue
     sips -s format png "$file" --out "${file%.*}.png" && \
     rm "$file" && \
