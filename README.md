@@ -25,12 +25,13 @@ The `convert_heic` script is a shell function designed to streamline the convers
 ### **1. Add the Function to `.zshrc`**
 1. Open your `.zshrc` file in a text editor:
    ```bash
-   nano ~/.zshrc
+   vim ~/.zshrc
    ```
 2. Copy and paste the function below into the file:
    ```bash
    convert_heic() {
-     for file in *.HEIC *.heic(N); do
+     setopt +o nomatch  # Prevent zsh from erroring on no matches
+     for file in *.HEIC *.heic; do
        [ -f "$file" ] || continue
        sips -s format png "$file" --out "${file%.*}.png" && \
        rm "$file" && \
